@@ -1,11 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Heart, ShoppingCart, Search, MapPin, Menu, X, Star, Leaf, ArrowRight, RefreshCw, User } from "lucide-react";
+import {
+  Heart,
+  ShoppingCart,
+  Search,
+  MapPin,
+  Menu,
+  X,
+  Star,
+  Leaf,
+  ArrowRight,
+  RefreshCw,
+  User,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { useStore } from "../context/StoreContext";
 import { money } from "../utils/currency";
 
-export const cats = [["Fruits & Vegetables", "??", "groceries"], ["Dairy & Eggs", "??", "groceries"], ["Bakery", "??", "groceries"], ["Meat & Seafood", "??", "groceries"], ["Snacks", "??", "groceries"], ["Beverages", "??", "groceries"], ["Grains & Pulses", "??", "groceries"], ["Household", "??", "home-decoration"]];
+export const cats = [
+  ["Fruits & Vegetables", "??", "groceries"],
+  ["Dairy & Eggs", "??", "groceries"],
+  ["Bakery", "??", "groceries"],
+  ["Meat & Seafood", "??", "groceries"],
+  ["Snacks", "??", "groceries"],
+  ["Beverages", "??", "groceries"],
+  ["Grains & Pulses", "??", "groceries"],
+  ["Household", "??", "home-decoration"],
+];
 
 export function Header() {
   const s = useStore(),

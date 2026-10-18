@@ -1,4 +1,5 @@
 import { adaptProduct } from "../utils/productAdapter";
+import { getMockProductById } from "../data/mockProducts";
 const base = "https://dummyjson.com/products";
 async function request(url, signal) {
   const res = await fetch(url, { signal });
@@ -13,6 +14,8 @@ export async function getProducts(limit = 30, skip = 0, signal) {
   };
 }
 export async function getProductById(id, signal) {
+  const mockProduct = getMockProductById(String(id));
+  if (mockProduct) return mockProduct;
   return adaptProduct(
     await request(`${base}/${encodeURIComponent(id)}`, signal),
   );
