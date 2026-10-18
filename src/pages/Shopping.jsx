@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, CheckCircle, RefreshCw } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  ShoppingCart,
+  Minus,
+  Plus,
+  Trash2,
+  ArrowRight,
+  CheckCircle,
+  RefreshCw,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { useStore } from "../context/StoreContext";
 import { money } from "../utils/currency";

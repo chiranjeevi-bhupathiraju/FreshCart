@@ -2,10 +2,18 @@ import { useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Star, Leaf, ArrowRight, Heart, ShoppingCart } from "lucide-react";
 import toast from "react-hot-toast";
-import { getProducts, getProductById, searchProducts, getProductsByCategory } from "../services/api";
+import { getProducts, getProductById, searchProducts } from "../services/api";
+import { getMockProductsByCategory } from "../data/mockProducts";
 import { useStore } from "../context/StoreContext";
 import { money } from "../utils/currency";
-import { cats, ProductCard, ProductGrid, useLoad, Loading, LoadError } from "../components/shared";
+import {
+  cats,
+  ProductCard,
+  ProductGrid,
+  useLoad,
+  Loading,
+  LoadError,
+} from "../components/shared";
 
 export function Home() {
   const r = useLoad(async (signal) => {
@@ -64,13 +72,31 @@ export function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          {cats.map(([name, emoji], i) => (
+          {cats.map(([name, emoji, , imageId]) => (
             <Link
               to={`/category/${encodeURIComponent(name)}`}
               key={name}
-              className="bg-white border border-gray-100 rounded-2xl py-5 text-center hover:border-green-300 hover:-translate-y-1 transition"
+              className="bg-white border border-gray-100 rounded-2xl p-3 text-center hover:border-green-300 hover:-translate-y-1 transition"
             >
-              <div className="text-3xl">{emoji}</div>
+              <div className="relative h-20 overflow-hidden rounded-xl bg-[#f2f7ef]">
+                <span
+                  className="absolute inset-0 grid place-items-center text-3xl"
+                  aria-hidden="true"
+                >
+                  {emoji}
+                </span>
+                <img
+                  src={`https://images.unsplash.com/${imageId}?auto=format&fit=crop&w=240&h=160&q=75`}
+                  alt=""
+                  loading="lazy"
+                  className="relative h-full w-full object-cover"
+                  onError={(event) => {
+                    const slug = name.toLowerCase().replace(/[^a-z]+/g, "-");
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = `/category-images/${slug}.svg`;
+                  }}
+                />
+              </div>
               <div className="text-xs font-semibold mt-3">{name}</div>
             </Link>
           ))}
@@ -140,7 +166,7 @@ export function Catalog({ category }) {
     r = useLoad(
       (sig) =>
         category
-          ? getProductsByCategory(category, sig)
+          ? Promise.resolve(getMockProductsByCategory(category))
           : query
             ? searchProducts(query, sig)
             : getProducts(100, 0, sig).then((result) => result.products),
