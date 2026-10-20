@@ -2,6 +2,8 @@
 
 A responsive grocery storefront built with React, JavaScript, Vite, Tailwind CSS, React Router, and DummyJSON. It demonstrates product discovery, shopping cart and wishlist persistence, a simulated checkout, and local order history. No real payment or delivery service is connected.
 
+![FreshCart storefront screenshot](public/freshcart-screenshot.png)
+
 ## Run locally
 
 ```sh
